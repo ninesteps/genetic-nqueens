@@ -8,7 +8,7 @@ set border 3
 
 set boxwidth 0.05 absolute
 set style fill solid 1.0 noborder
-
+set output "output.png"
 bin_width = 0.1
 
 bin_number(x) = floor (x/bin_width)
