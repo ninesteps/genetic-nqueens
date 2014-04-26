@@ -11,7 +11,7 @@ public class nqueens{
 	private static int mutations = 0;			//Number of Mutations before success
 	private static boolean finished = false;		//Game over man
 	private static Random rand = new Random();		//For Random calculations
-	private static final int EPOCH_LIMIT = 200000;		//If this many generations occur restart
+	private static final int EPOCH_LIMIT = 100000;		//If this many generations occur restart
 	private static String mutate(String offspring){
 		char[] choffspring = offspring.toCharArray();
 		choffspring[rand.nextInt(GAME_SIZE)] = (char)(((int)'0')+rand.nextInt(GAME_SIZE));    
@@ -130,6 +130,9 @@ public class nqueens{
 	public static void main(String[] args){
 		int count = 0;
 		while (count < NO_OF_RUNS){
+		epochs = 0;
+		mutations = 0;
+		finished = false;
 
 			initializePopulation();	
 			computeFitness();
