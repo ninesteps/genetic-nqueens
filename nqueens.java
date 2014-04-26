@@ -1,13 +1,14 @@
 import java.util.*;
 
 public class nqueens{
-	private static final int NO_OF_RUNS = 60;
+	private static final int NO_OF_RUNS = 30;
 	private static final double MUTATION_RATE = 0.01;	//Chance of Genetic Mutation
 	private static final int GAME_SIZE = 8;			//Number of Queens and Size of Board
 //	private static final int SPLIT_POINT = GAME_SIZE / 2;	//Split down the middle when breeding		
 	private static final int POP_SIZE = 75;
 	private static ArrayList <String> population = new ArrayList <String>();
 	private static int epochs = 0;				//Number of Generations before success
+	private static int totalepochs = 0;
 	private static int mutations = 0;			//Number of Mutations before success
 	private static boolean finished = false;		//Game over man
 	private static Random rand = new Random();		//For Random calculations
@@ -146,7 +147,9 @@ public class nqueens{
 		//	System.out.println("Epochs: " + epochs);
 		//	drawGame();
 			System.out.println(epochs);
-			count++;
+			totalepochs += epochs;
+			System.err.println(count++);
 		}		//END WHILE
+		System.err.println(totalepochs/NO_OF_RUNS);
 	}
 }
