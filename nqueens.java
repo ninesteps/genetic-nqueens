@@ -1,6 +1,7 @@
 import java.util.*;
 
 public class nqueens{
+	private static final int NO_OF_RUNS = 20;
 	private static final double MUTATION_RATE = 0.01;	//Chance of Genetic Mutation
 	private static final int GAME_SIZE = 8;			//Number of Queens and Size of Board
 //	private static final int SPLIT_POINT = GAME_SIZE / 2;	//Split down the middle when breeding		
@@ -127,15 +128,22 @@ public class nqueens{
 	}
 
 	public static void main(String[] args){
-		initializePopulation();	
-		computeFitness();
+		int count = 0;
+		while (count < NO_OF_RUNS){
 
-		while(!finished){
-			newGeneration();
+			initializePopulation();	
 			computeFitness();
-		}
-		System.out.println("FINISHED!! : " + population.get(0).substring(0,GAME_SIZE) + " Mutations : " + mutations);
-		System.out.println("Epochs: " + epochs);
-		drawGame();
+
+			while(!finished){
+				newGeneration();
+				computeFitness();
+			}
+		//	System.out.println("FINISHED!! : " +
+		//		population.get(0).substring(0,GAME_SIZE) + " Mutations : " + mutations);
+		//	System.out.println("Epochs: " + epochs);
+		//	drawGame();
+			System.out.println(epochs);
+			count++;
+		}		//END WHILE
 	}
 }
