@@ -147,7 +147,7 @@ public class nqueens{
 
 	public static void main(String[] args){
 		int count = 0;
-		while (count < NO_OF_RUNS){
+		while (count < NO_OF_RUNS){		//Repeat algorithm a set number of times for testing purposes
 		epochs = 0;
 		mutations = 0;
 		finished = false;
