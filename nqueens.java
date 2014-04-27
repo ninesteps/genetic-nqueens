@@ -1,23 +1,25 @@
 import java.util.*;
 
 public class nqueens{
-	private static final int NO_OF_RUNS = 30;
+	private static final int NO_OF_RUNS = 30;		//Number of times to run Algorithm 		-TESTING
 	private static final double MUTATION_RATE = 0.01;	//Chance of Genetic Mutation
 	private static final int GAME_SIZE = 8;			//Number of Queens and Size of Board
-//	private static final int SPLIT_POINT = GAME_SIZE / 2;	//Split down the middle when breeding		
-	private static final int POP_SIZE = 75;
+	private static final int POP_SIZE = 75;			//Size of Initial Population
+	private static final int EPOCH_LIMIT = 50000;		//If this many generations occur restart
+
 	private static ArrayList <String> population = new ArrayList <String>();
-	private static int epochs = 0;				//Number of Generations before success
-	private static int totalepochs = 0;
-	private static int mutations = 0;			//Number of Mutations before success
-	private static boolean finished = false;		//Game over man
+	private static int epochs = 0;				//Counter for Epochs until success 
+	private static int mutations = 0;			//Counter for Mutations until success
+	private static int totalepochs = 0;			//Total number of epochs across all Runs 	-TESTING
+	private static boolean finished = false;		//Turns true when goal case is reached
 	private static Random rand = new Random();		//For Random calculations
-	private static final int EPOCH_LIMIT = 100000;		//If this many generations occur restart
+
+
+
 	private static String mutate(String offspring){
 		char[] choffspring = offspring.toCharArray();
-		choffspring[rand.nextInt(GAME_SIZE)] = (char)(((int)'0')+rand.nextInt(GAME_SIZE));    
-		choffspring[rand.nextInt(GAME_SIZE)] = (char)(((int)'0')+rand.nextInt(GAME_SIZE));    
-
+		choffspring[rand.nextInt(GAME_SIZE)] = (char)(((int)'0')+rand.nextInt(GAME_SIZE));	//Mutates bit
+//		choffspring[rand.nextInt(GAME_SIZE)] = (char)(((int)'0')+rand.nextInt(GAME_SIZE));	//-TESTING
 
 		mutations++;
 		return (String.valueOf(choffspring));
@@ -26,9 +28,12 @@ public class nqueens{
 
 	
 	private static String breed(int parentA, int parentB){
-		int split = rand.nextInt(GAME_SIZE);
+//		int split = rand.nextInt(GAME_SIZE);		//Random Splits
+		int split = GAME_SIZE/2;			//Half Splits.. ONLY ONE OF THESE TWO ACTIVE AT A TIME
+
 		String offspring = population.get(parentA).substring(0,split)
 					+ population.get(parentB).substring(split, GAME_SIZE);
+		
 		if (rand.nextFloat() <= MUTATION_RATE){
 			offspring = mutate(offspring);
 		} 
@@ -46,7 +51,7 @@ public class nqueens{
 		if(epochs%EPOCH_LIMIT==0){ initializePopulation(); } else {
 
 			for (int i = 0; i < POP_SIZE/4; i++){
-				population.remove(population.size()-1);			//Kill the weaker half of the population
+				population.remove(population.size()-1);			//Kill the weaker 1/4 of the population
 			}
 
 			while (population.size() < POP_SIZE){		//Breed randomly until population back to size
@@ -115,6 +120,9 @@ public class nqueens{
 		
 	}
 
+	/*
+	Draw a graphical representation of the winning game
+	*/
 	private static void drawGame(){
 		char[] winner = population.get(0).toCharArray();
 		for (int i = 0; i < GAME_SIZE; i++){
@@ -124,8 +132,17 @@ public class nqueens{
 
 			}
 			System.out.println("");
-			
 		}
+	}
+
+	/*
+	Show game stats, called at gameOver
+	*/
+	private static void gameOver(){
+		System.out.println("FINISHED!! : " + population.get(0).substring(0,GAME_SIZE));
+		System.out.println("Mutations : " + mutations);
+		System.out.println("Epochs : " + epochs);
+		drawGame();
 	}
 
 	public static void main(String[] args){
@@ -142,10 +159,6 @@ public class nqueens{
 				newGeneration();
 				computeFitness();
 			}
-		//	System.out.println("FINISHED!! : " +
-		//		population.get(0).substring(0,GAME_SIZE) + " Mutations : " + mutations);
-		//	System.out.println("Epochs: " + epochs);
-		//	drawGame();
 			System.out.println(epochs);
 			totalepochs += epochs;
 			System.err.println(count++);
