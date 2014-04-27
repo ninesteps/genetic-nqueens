@@ -46,17 +46,45 @@ public class nqueens{
 	were getting stuck at the end and then immediately deleted.
 	now inserts at beginning instead of end, hopefully this should favor new additions
 	*/
-	private static void newGeneration(){
-
+	private static void newGeneration(Boolean ranked){
+		int parent1 = -1;
+		int parent2 = -1;
 		if(epochs%EPOCH_LIMIT==0){ initializePopulation(); } else {
-
+			
+		if(!ranked){						//TWO POSSIBLE METHODS OF SELECTION	
 			for (int i = 0; i < POP_SIZE/1.5; i++){
-				population.remove(population.size()-1);			//Kill the weaker 1/4 of the population
+				population.remove(population.size()-1);		//Kill the weaker 3/4 of the population
 			}
 
 			while (population.size() < POP_SIZE){		//Breed randomly until population back to size
 				population.add(0, breed(rand.nextInt(population.size()), rand.nextInt(population.size())));
 			}
+	
+		} else {	//Ranked Selection
+			for (int i = 0; i < POP_SIZE/2; i++){
+				population.remove(population.size()-1);		//Kill the weaker 1/2 of the population
+			}
+			
+			while (population.size() < POP_SIZE){
+				float randyTester = rand.nextFloat();
+				int randySelector = rand.nextInt(POP_SIZE/2);
+
+				//Selection test
+				if(randyTester < (2.0 / Character.getNumericValue(population.get(randySelector)
+							.charAt(GAME_SIZE)))){
+					
+					if (parent1 == -1) {
+						parent1 = randySelector;
+					} else {
+						parent2 = randySelector;
+						population.add(breed(parent1,parent2));
+						parent1 = -1;
+					}	
+				}
+			}
+		
+	
+		}
 		}
 	epochs++;
 	}
@@ -156,7 +184,7 @@ public class nqueens{
 			computeFitness();
 
 			while(!finished){
-				newGeneration();
+				newGeneration(true);
 				computeFitness();
 			}
 			System.out.println(epochs);
