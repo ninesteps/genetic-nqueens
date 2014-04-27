@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class nqueens{
-	private static final int NO_OF_RUNS = 1000;		//Number of times to run Algorithm 		-TESTING
+	private static final int NO_OF_RUNS = 100;		//Number of times to run Algorithm 		-TESTING
 	private static final double MUTATION_RATE = 1;		//Chance of Genetic Mutation
 	private static final int GAME_SIZE = 8;			//Number of Queens and Size of Board
 	private static final int POP_SIZE = 20;			//Size of Initial Population
@@ -55,7 +55,10 @@ public class nqueens{
 			}
 
 			while (population.size() < POP_SIZE){		//Breed randomly until population back to size
-				population.add(rand.nextInt(population.size()), breed(count, rand.nextInt(population.size())));
+				population.add(0
+				, breed(rand.nextInt(population.size())
+				, rand.nextInt(population.size()))); 
+
 				count++;
 				}
 		}
@@ -162,7 +165,8 @@ public class nqueens{
 			}
 			System.out.println(epochs);
 			totalepochs += epochs;
-			System.err.println(count++);
+			count++;
+	//		System.err.println(count);
 		}		//END WHILE
 		System.err.println(totalepochs/NO_OF_RUNS);
 	}
