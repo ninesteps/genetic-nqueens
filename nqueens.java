@@ -50,7 +50,7 @@ public class nqueens{
 
 		if(epochs%EPOCH_LIMIT==0){ initializePopulation(); } else {
 
-			for (int i = 0; i < POP_SIZE/4; i++){
+			for (int i = 0; i < POP_SIZE/1.5; i++){
 				population.remove(population.size()-1);			//Kill the weaker 1/4 of the population
 			}
 
