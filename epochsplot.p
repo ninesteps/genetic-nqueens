@@ -6,11 +6,11 @@ reset
 set key off
 set border 3
 
-set boxwidth 1000 absolute
+set boxwidth 25 absolute
 set style fill solid 1.0 noborder
 set term png
 set output "output.png"
-bin_width = 2000;
+bin_width = 50;
 
 bin_number(x) = floor (x/bin_width)
 

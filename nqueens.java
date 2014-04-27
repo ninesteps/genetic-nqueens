@@ -1,11 +1,11 @@
 import java.util.*;
 
 public class nqueens{
-	private static final int NO_OF_RUNS = 100;		//Number of times to run Algorithm 		-TESTING
-	private static final double MUTATION_RATE = 0.01;	//Chance of Genetic Mutation
+	private static final int NO_OF_RUNS = 1000;		//Number of times to run Algorithm 		-TESTING
+	private static final double MUTATION_RATE = 1;		//Chance of Genetic Mutation
 	private static final int GAME_SIZE = 8;			//Number of Queens and Size of Board
-	private static final int POP_SIZE = 8;			//Size of Initial Population
-	private static final int EPOCH_LIMIT = 3000;		//If this many generations occur restart
+	private static final int POP_SIZE = 20;			//Size of Initial Population
+	private static final int EPOCH_LIMIT = 200;		//If this many generations occur restart
 
 	private static ArrayList <String> population = new ArrayList <String>();
 	private static int epochs = 0;				//Counter for Epochs until success 
@@ -28,8 +28,8 @@ public class nqueens{
 
 	
 	private static String breed(int parentA, int parentB){
-//		int split = rand.nextInt(GAME_SIZE);		//Random Splits
-		int split = GAME_SIZE/2;			//Half Splits.. ONLY ONE OF THESE TWO ACTIVE AT A TIME
+		int split = rand.nextInt(GAME_SIZE);		//Random Splits
+//		int split = GAME_SIZE/2;			//Half Splits.. ONLY ONE OF THESE TWO ACTIVE AT A TIME
 
 		String offspring = population.get(parentA).substring(0,split)
 					+ population.get(parentB).substring(split, GAME_SIZE);
