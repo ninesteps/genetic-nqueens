@@ -57,7 +57,7 @@ public class nqueens{
 			while (population.size() < POP_SIZE){		//Breed randomly until population back to size
 				population.add(0
 				, breed(rand.nextInt(population.size())
-				, rand.nextInt(population.size()))); 
+				, rand.nextInt(population.size()))); 	// Adds at start of array so new pop favoured
 
 				count++;
 				}
@@ -67,7 +67,6 @@ public class nqueens{
 
 	/*
 	check for collisions
-	only have to check diagonals forwards
 	*/
 	private static int numberOfCollisions(String positions){
 		int conflicts = 0;
@@ -131,7 +130,7 @@ public class nqueens{
 		char[] winner = population.get(0).toCharArray();
 		for (int i = 0; i < GAME_SIZE; i++){
 			for (int j = 0; j < GAME_SIZE; j++){
-				System.out.print(winner[j] == '7' ? "Q " : "- "); 	//Print Bottom line, Q for queen else .
+				System.out.print(winner[j] == '7' ? "Q " : "- ");//Print Bottom line, Q for queen else -
 				winner[j] = (char)(((int)winner[j])+1);
 
 			}
