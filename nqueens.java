@@ -1,4 +1,5 @@
 import java.util.*;
+import java.io.*;
 
 public class nqueens{
 	private static final int NO_OF_RUNS = 1000;		//Number of times to run Algorithm 		-TESTING
@@ -13,7 +14,6 @@ public class nqueens{
 	private static int totalepochs = 0;			//Total number of epochs across all Runs 	-TESTING
 	private static boolean finished = false;		//Turns true when goal case is reached
 	private static Random rand = new Random();		//For Random calculations
-
 
 
 	private static String mutate(String offspring){
@@ -149,12 +149,16 @@ public class nqueens{
 		drawGame();
 	}
 
-	public static void main(String[] args){
+	public static void main(String[] args) throws IOException{
 		int count = 0;
+		PrintWriter writer = new PrintWriter("Fittest-Each-Generation.txt", "UTF-8");
+		
 		while (count < NO_OF_RUNS){		//Repeat algorithm a set number of times for testing purposes
-		epochs = 0;
-		mutations = 0;
-		finished = false;
+			epochs = 0;
+			mutations = 0;
+			finished = false;
+			
+			writer.println("Count: " + count + " *********************");
 
 			initializePopulation();	
 			computeFitness();
@@ -162,6 +166,7 @@ public class nqueens{
 			while(!finished){
 				newGeneration(true);
 				computeFitness();
+				writer.println(population.get(0).charAt(GAME_SIZE));
 			}
 			System.out.println(epochs);
 			totalepochs += epochs;
@@ -170,5 +175,6 @@ public class nqueens{
 		}		//END WHILE
 		System.err.println(totalepochs/NO_OF_RUNS);
 		gameOver();
+		writer.close();
 	}
 }
