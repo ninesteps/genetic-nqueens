@@ -2,10 +2,10 @@ import java.util.*;
 import java.io.*;
 
 public class nqueens{
-	private static final int NO_OF_RUNS = 1000;		//Number of times to run Algorithm 		-TESTING
+	private static final int NO_OF_RUNS = 2000;		//Number of times to run Algorithm 		-TESTING
 	private static final double MUTATION_RATE = 1;		//Chance of Genetic Mutation
 	private static final int GAME_SIZE = 8;			//Number of Queens and Size of Board
-	private static final int POP_SIZE = 20;			//Size of Initial Population
+	private static final int POP_SIZE = 10;			//Size of Initial Population
 	private static final int EPOCH_LIMIT = 100;		//If this many generations occur restart
 
 	private static ArrayList <String> population = new ArrayList <String>();
@@ -28,8 +28,8 @@ public class nqueens{
 
 	
 	private static String breed(int parentA, int parentB){
-		int split = rand.nextInt(GAME_SIZE);		//Random Splits
-//		int split = GAME_SIZE/2;			//Half Splits.. ONLY ONE OF THESE TWO ACTIVE AT A TIME
+//		int split = rand.nextInt(GAME_SIZE);		//Random Splits
+		int split = GAME_SIZE/2;			//Half Splits.. ONLY ONE OF THESE TWO ACTIVE AT A TIME
 
 		String offspring = population.get(parentA).substring(0,split)
 					+ population.get(parentB).substring(split, GAME_SIZE);
@@ -46,7 +46,7 @@ public class nqueens{
 	were getting stuck at the end and then immediately deleted.
 	now inserts at beginning instead of end, hopefully this should favor new additions
 	*/
-	private static void newGeneration(Boolean ranked){
+	private static void newGeneration(){
 		int count = 0;	
 		if(epochs%EPOCH_LIMIT==0){ initializePopulation(); } else {
 			
@@ -149,6 +149,7 @@ public class nqueens{
 	}
 
 	public static void main(String[] args) throws IOException{
+        final long startTime = System.currentTimeMillis();
 		int count = 0;
 		PrintWriter writer = new PrintWriter("Fittest-Each-Generation.txt", "UTF-8");
 		
@@ -163,7 +164,7 @@ public class nqueens{
 			computeFitness();
 
 			while(!finished){
-				newGeneration(true);
+				newGeneration();
 				computeFitness();
 				writer.println(population.get(0).charAt(GAME_SIZE));
 			}
@@ -175,5 +176,6 @@ public class nqueens{
 		System.err.println(totalepochs/NO_OF_RUNS);
 		gameOver();
 		writer.close();
+        System.out.println("time: " + (System.currentTimeMillis() - startTime));
 	}
 }
